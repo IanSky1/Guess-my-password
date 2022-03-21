@@ -1,12 +1,13 @@
 var passwordLength = [];
 var optionsArray = "";
 
+// The 4 different arrays of various options to choose from while generating the password
 var lowerCaseArray = "abcdefghijklmnopqrstuvwxyz";
 var upperCaseArray = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 var numbersArray = "0123456789";
 var specialCharArray = "!@#$%^&*~`()_{}";
 
-// Assignment code here
+// Assignment code
 var generateBtn = document.querySelector("#generate");
 
 
@@ -26,6 +27,7 @@ function writePassword() {
   }
 }
 
+// Generate password function that returns a password that meets all of the criteria
 function generatePassword() {
   var password = "";
   for(var i = 0; i < passwordLength; i++) {
@@ -76,15 +78,10 @@ function createPrompts() {
 
 }
 
-
-
-
-
-
     //PSUEDOCODE: 
   // 1. need to prompt the user for password criteria
   //    a. Password length needs to be between 8-128 characters
   //    b. Lowercase, uppercase, numbers, special characters
   // 2. Need to validate the input with at least one character type that will be selected
   // 3. Generate password based on the provided criteria.
-  // 4. Display generated password to the page - COMPLETED
+  // 4. Display generated password to the page.
