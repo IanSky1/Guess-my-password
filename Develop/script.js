@@ -1,5 +1,5 @@
-var passwordLength = 8;
-var optionsArray = [];
+var passwordLength = [];
+var optionsArray = "";
 
 var lowerCaseArray = "abcdefghijklmnopqrstuvwxyz";
 var upperCaseArray = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -16,41 +16,61 @@ generateBtn.addEventListener("click", writePassword);
 // Write password to the #password input
 function writePassword() {
   var correctPrompts = createPrompts(); //Returns true or false
+  var passwordText = document.querySelector("#password");
 
-  if(correctPrompts)
-    var password = generatePassword();
-    var passwordText = document.querySelector("#password");
-
-    passwordText.value = password;
+  if (correctPrompts) {
+    var newPassword = generatePassword();
+    passwordText.textContent = newPassword;
+  } else {
+      passwordText.textContent = "";
   }
-
+}
 
 function generatePassword() {
+  var password = "";
+  for(var i = 0; i < passwordLength; i++) {
+      var randomIndex = Math.floor(Math.random() * optionsArray.length)
+      password = password + optionsArray[randomIndex];
+  }
+  return password;
 }
 
 function createPrompts() {
-  optionsArray = [];
+  var lowerCaseCriteria = false;
+  var upperCaseCriteria = false;
+  var numbersCriteria = false;
+  var specialCriteria = false;
+ 
   passwordLength = parseInt(prompt("How many characters do you want your password to be? (8 - 128"));
 
   if (isNaN(passwordLength) || passwordLength < 8 || passwordLength > 128) {
-      alert("Password length has to be a number and have a minimum of 8 digits and maximum of 128.");
+      alert("Password length must be at least 8 characters and no more than 128.");
       return false;
   }
 
   if (confirm("It is recommended that you include lowercase letters in your password.")) {
-      optionsArray = optionsArray.concat(lowerCaseArray);
+      optionsArray += lowerCaseArray;
+      lowerCaseCriteria = true
   }
 
   if (confirm("It is recommended that you include uppercase letters in your password.")) {
-      optionsArray = optionsArray.concat(upperCaseArray);
+      optionsArray += upperCaseArray;
+      upperCaseCriteria = true
   }
 
   if (confirm("It is recommended that you include numbers in your password.")) {
-      optionsArray = optionsArray.concat(numbersArray);
+      optionsArray += numbersArray;
+      numbersCriteria = true
   }
 
   if (confirm("It is recommended that you include special characters in your password.")) {
-      optionsArray = optionsArray.concat(specialCharArray);
+      optionsArray += specialCharArray;
+      specialCriteria = true
+  }
+  
+  if (!lowerCaseCriteria || !upperCaseCriteria || !numbersCriteria || !specialCriteria) {
+    alert("You must select at least one character type.")
+    createPrompts();
   }
   return true;
 
